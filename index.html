@@ -1,1 +1,344 @@
-<!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10243a"><link rel="manifest" href="manifest.json"><title>Work Pro</title><style>*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;font:15px system-ui;background:#f3f6fa;color:#172b42}header{background:#10243a;color:white;padding:18px max(20px,calc((100vw - 1100px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px}header strong{font-size:24px;letter-spacing:1px}header small{display:block;color:#b8c9da}main{max-width:1140px;padding:24px 20px 90px;margin:auto}nav{position:sticky;top:0;z-index:2;background:#fff;border-bottom:1px solid #e0e7ef;display:flex;justify-content:center;gap:8px;padding:10px}nav a{padding:10px 16px;text-decoration:none;color:#36516b;border-radius:10px}nav a:hover{background:#eaf5f2;color:#087f68}h1{font-size:28px;margin:0 0 6px}h2{font-size:19px;margin:0 0 18px}p{line-height:1.8}.muted,small{color:#65788d}.hero{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.pill{background:#e3f5ee;color:#087358;border-radius:30px;padding:8px 14px;font-size:12px;white-space:nowrap}section{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:24px;margin-bottom:20px;box-shadow:0 5px 22px #18344d05}.heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px;margin:20px 0}.stat{background:#f6f9fc;border:1px solid #e4ebf2;border-radius:15px;padding:18px;border-top:3px solid #12967b}.stat span{color:#60768d;font-size:13px}.stat b{display:block;font-size:25px;margin-top:10px;font-variant-numeric:tabular-nums;direction:ltr;text-align:right}.stat:nth-child(4){border-top-color:#e9aa38}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}label{display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;color:#486078}input,select,textarea,button{font:inherit;border-radius:10px}input,select,textarea{padding:12px;border:1px solid #d9e3ed;background:#f9fbfd;width:100%;color:#172b42;min-height:46px}input:focus,select:focus,textarea:focus{outline:3px solid #12a18422;border-color:#11997c}textarea{min-height:85px;resize:vertical}button{padding:12px 18px;border:0;background:#087f68;color:#fff;font-weight:600;cursor:pointer;min-height:44px}button:hover{filter:brightness(.94)}button.secondary{background:#edf2f7;color:#304c68}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.wide{margin-top:16px}.scroll{overflow:auto;border:1px solid #e5ebf2;border-radius:12px}table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:14px}th{background:#f0f5fa;color:#526a83;font-weight:600}td,th{padding:14px;text-align:right;border-bottom:1px solid #e9eef4}tbody tr:nth-child(even){background:#fafcfe}td button{padding:7px 12px;margin-left:5px;background:#e7f4ef;color:#087358;min-height:36px}td button:last-child{background:#fff0f0;color:#b64141}.notice{background:#f1f8fc;padding:14px;border-radius:12px;color:#526a83;font-size:13px}#status:empty{display:none}#status{background:#e3f5ee;color:#086c55;padding:12px 18px;border-radius:12px}footer{text-align:center;font-size:12px;color:#8091a4}#install{background:#fff;color:#10243a}@media(max-width:700px){main{padding:20px 14px 90px}section{padding:18px;border-radius:16px}.grid{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(2,1fr);gap:10px}.hero{align-items:flex-start}.hero h1{font-size:23px}.pill{font-size:10px;padding:7px}.stat{padding:14px}.stat b{font-size:23px}nav{position:fixed;top:auto;bottom:0;width:100%;border-top:1px solid #dbe4ef;padding-bottom:max(10px,env(safe-area-inset-bottom));gap:0}nav a{flex:1;text-align:center;padding:12px 5px;font-size:12px}header{padding:16px}header small{font-size:11px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}</style><header><div><strong dir="ltr">WORK PRO</strong><small>مساحتك لتنظيم العمل والمصاريف</small></div><button id="install" hidden>تنصيب التطبيق</button></header><nav aria-label="التنقل"><a href="#dashboard">الرئيسية</a><a href="#entry">إدخال يوم</a><a href="#records">السجلات</a><a href="#settings">الحفظ</a></nav><main><div class="hero"><div><h1>لوحة المتابعة</h1><small>وقتك، نقاطك ومصاريفك في مكان واحد.</small></div><span class="pill">حفظ محلي على جهازك</span></div><p id="status" role="status"></p><section id="dashboard"><div class="heading"><h2>نظرة على الشهر</h2><label>الفترة<input id="month" type="month"></label></div><div id="summary" class="cards"></div><small>صافي الوقت = الزائد − الناقص. الغياب والمصروف مستقلان.</small></section><section id="entry"><h2>تسجيل يوم العمل</h2><form id="form"><div class="grid"><label>التاريخ<input id="date" type="date" required></label><label>ساعات زائدة<input id="oh" type="number" min="0" step="1" value="0" required></label><label>دقائق زائدة<input id="om" type="number" min="0" max="59" step="1" value="0" required></label><label>ساعات ناقصة<input id="uh" type="number" min="0" step="1" value="0" required></label><label>دقائق ناقصة<input id="um" type="number" min="0" max="59" step="1" value="0" required></label><label>الغياب<select id="abs"><option value="0">لا يوجد غياب</option><option value="0.5">نصف يوم</option><option value="1">يوم كامل</option></select></label><label>نقاط ماشينة 2<input id="pts" type="number" min="0" step="0.01" value="0" required></label><label>المصروف (دج)<input id="exp" type="number" min="0" step="0.01" value="0" required></label></div><label class="wide">ملاحظات<textarea id="note" placeholder="تفاصيل المصروف أو ملاحظات اليوم…" maxlength="2000"></textarea></label><div class="actions"><button>حفظ اليوم</button><button class="secondary" type="reset">تفريغ الخانات</button></div></form></section><section id="records"><h2>سجلات الشهر</h2><div class="scroll"><table><thead><tr><th>التاريخ</th><th>صافي الوقت</th><th>غياب</th><th>نقاط</th><th>مصروف (دج)</th><th>إجراءات</th></tr></thead><tbody id="rows"></tbody></table></div></section><section id="settings"><h2>حماية بياناتك</h2><p class="notice">البيانات محفوظة في هذا المتصفح فقط، بلا مزامنة بين الأجهزة. نزّل نسخة JSON بانتظام واحتفظ بها خارج الهاتف.</p><button id="backup">تنزيل نسخة احتياطية</button><label class="wide">استرجاع نسخة JSON<input type="file" id="import" accept=".json,application/json"></label></section><footer>WORK PRO · إدارة يومك ببساطة</footer></main><script>'use strict';const $=x=>document.getElementById(x),key='work_pro_pwa_v1',nums=['oh','om','uh','um','abs','pts','exp'];let data=[],promptEvent,readError=false;function message(t){$('status').textContent=t}function valid(a){return Array.isArray(a)&&a.every(r=>r&&typeof r.date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(r.date)&&nums.every(k=>typeof r[k]==='number'&&Number.isFinite(r[k])&&r[k]>=0)&&r.om<60&&r.um<60&&[0,.5,1].includes(r.abs)&&(r.note===undefined||typeof r.note==='string'))&&new Set(a.map(r=>r.date)).size===a.length}try{data=JSON.parse(localStorage.getItem(key)||'[]');if(!valid(data))throw Error()}catch(e){data=[];readError=true;message('تعذر قراءة البيانات القديمة؛ تم إيقاف الحفظ لحمايتها. احتفظ بنسخة منها قبل الإصلاح.')}function persist(next){if(readError){message('الحفظ موقوف لحماية البيانات القديمة.');return false}try{localStorage.setItem(key,JSON.stringify(next));data=next;render();return true}catch(e){message('تعذر الحفظ. صدّر نسخة احتياطية وتحقق من مساحة التخزين.');return false}}function net(r){return r.oh*60+r.om-r.uh*60-r.um}function time(n){return(n<0?'-':'')+Math.floor(Math.abs(n)/60)+':'+String(Math.abs(n)%60).padStart(2,'0')}function render(){const rs=data.filter(r=>r.date.startsWith($('month').value)).sort((a,b)=>b.date.localeCompare(a.date));$('summary').replaceChildren();const cards=[['صافي الوقت',time(rs.reduce((s,r)=>s+net(r),0))],['نقاط ماشينة 2',rs.reduce((s,r)=>s+r.pts,0).toFixed(2)],['المصروف · دج',rs.reduce((s,r)=>s+r.exp,0).toFixed(2)],['أيام الغياب',rs.reduce((s,r)=>s+r.abs,0)],['أيام مسجلة',rs.length]];for(const [label,value]of cards){const c=document.createElement('div');c.className='stat';const s=document.createElement('span'),b=document.createElement('b');s.textContent=label;b.textContent=value;c.append(s,b);$('summary').append(c)}$('rows').replaceChildren();if(!rs.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=6;td.textContent='لا توجد سجلات لهذا الشهر. ابدأ بتسجيل يومك الأول.';tr.append(td);$('rows').append(tr)}for(const r of rs){const tr=document.createElement('tr');for(const v of[r.date,time(net(r)),r.abs,r.pts,r.exp]){const td=document.createElement('td');td.textContent=v;tr.append(td)}const td=document.createElement('td');for(const title of['تعديل','حذف']){const b=document.createElement('button');b.textContent=title;b.onclick=()=>{if(title==='تعديل'){for(const k of['date',...nums,'note'])$(k).value=r[k]??'';$('entry').scrollIntoView();$('date').focus({preventScroll:true})}else if(confirm('حذف '+r.date+'؟'))persist(data.filter(x=>x.date!==r.date))};td.append(b)}tr.append(td);$('rows').append(tr)}}const now=new Date(),today=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');$('date').value=today;$('date').defaultValue=today;$('month').value=today.slice(0,7);$('month').onchange=render;$('form').onsubmit=e=>{e.preventDefault();const r={date:$('date').value,note:$('note').value};for(const k of nums)r[k]=Number($(k).value);if(!valid([r]))return message('راجع القيم المدخلة');if(data.some(x=>x.date===r.date)&&!confirm('تعويض بيانات هذا اليوم؟'))return;if(persist([...data.filter(x=>x.date!==r.date),r]))message('تم حفظ يوم '+r.date+' بنجاح')};$('backup').onclick=()=>{if(readError)return message('تعذر تصدير البيانات غير المقروءة؛ لم تتغير النسخة الأصلية.');const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='work-pro-'+today+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000)};$('import').onchange=async e=>{try{const f=e.target.files[0];if(!f)return;const a=JSON.parse(await f.text());if(!valid(a))throw Error();if(confirm('استبدال جميع السجلات بـ '+a.length+' سجل؟ صدّر نسخة قبل الموافقة.'))if(persist(a))message('تم الاستيراد')}catch(err){message('ملف غير متوافق؛ لم تتغير بياناتك')}e.target.value=''};window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();promptEvent=e;$('install').hidden=false});$('install').onclick=async()=>{if(promptEvent){await promptEvent.prompt();promptEvent=null;$('install').hidden=true}};if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>message('تعذر تفعيل العمل دون إنترنت'));render();</script></html>
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#121212"><link rel="manifest" href="manifest.json"><title>Work Pro</title><style>
+:root{--bg:#121212;--surface:#1c1c1e;--surface-elevated:#2c2c2e;--accent:#22c55e;--accent-glow:rgba(34,197,94,0.18);--text:#ffffff;--text-muted:#8e8e93;--danger:#ef4444;--border:#2c2c2e;--radius:18px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);padding-bottom:90px;font-size:15px;line-height:1.4}
+header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;background:transparent}
+header .logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;color:#fff}
+header .logo span{color:var(--accent)}
+.icon-btn{background:var(--surface);border:1px solid var(--border);color:#fff;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px}
+main{padding:0 16px;max-width:600px;margin:0 auto}
+.view{display:none}.view.active{display:block}
+.card{background:var(--surface);border-radius:var(--radius);padding:18px;margin-bottom:14px;border:1px solid var(--border)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.card-header h2{font-size:17px;margin:0;font-weight:700}
+.week-bar{display:flex;justify-content:space-between;background:var(--surface);border-radius:var(--radius);padding:12px;margin-bottom:14px;border:1px solid var(--border)}
+.day-col{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;cursor:pointer;padding:6px 0;border-radius:12px;transition:0.2s}
+.day-col .day-name{font-size:11px;color:var(--text-muted)}
+.day-col .day-num{font-size:16px;font-weight:700;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.day-col.selected .day-num{background:var(--accent);color:#000}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.stat-box{background:var(--surface);border-radius:var(--radius);padding:16px;border:1px solid var(--border);display:flex;flex-direction:column;gap:6px}
+.stat-box span{font-size:12px;color:var(--text-muted)}
+.stat-box b{font-size:22px;font-weight:800;color:#fff}
+.stat-box.full{grid-column:span 2}
+.stat-box b.accent{color:var(--accent)}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:span 2}
+label{font-size:12px;color:var(--text-muted);font-weight:600}
+input,select,textarea{background:var(--surface-elevated);border:1px solid var(--border);color:#fff;border-radius:12px;padding:12px 14px;font-size:15px;font-family:inherit;width:100%;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:70px}
+.btn-primary{background:var(--accent);color:#000;font-weight:700;font-size:16px;border:none;border-radius:14px;padding:14px;width:100%;cursor:pointer;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-secondary{background:var(--surface-elevated);color:#fff;font-weight:600;font-size:14px;border:none;border-radius:12px;padding:10px 14px;cursor:pointer}
+.list-item{background:var(--surface-elevated);border-radius:14px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.list-item .date{font-weight:700;font-size:15px;margin-bottom:3px}
+.list-item .sub{font-size:12px;color:var(--text-muted)}
+.list-item .net{font-size:16px;font-weight:800;color:var(--accent)}
+.list-item .net.neg{color:var(--danger)}
+.actions{display:flex;gap:8px}
+.actions button{background:transparent;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;padding:4px 8px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(28,28,30,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom));z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--text-muted);text-decoration:none;font-size:11px;font-weight:600;cursor:pointer;background:none;border:none;flex:1}
+.nav-item.active{color:var(--accent)}
+.nav-item .icon{font-size:22px;line-height:1}
+.nav-center-btn{width:48px;height:48px;background:var(--accent);border-radius:50%;color:#000;display:flex;align-items:center;justify-content:center;font-size:24px;border:none;cursor:pointer;margin-top:-14px;box-shadow:0 4px 14px var(--accent-glow)}
+#toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--surface-elevated);border:1px solid var(--accent);color:#fff;padding:10px 20px;border-radius:30px;font-size:13px;font-weight:600;display:none;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,0.5)}
+</style></head>
+<body>
+<header>
+  <div class="logo">Work<span>Pro</span></div>
+  <button id="install" class="icon-btn" title="تنصيب" style="display:none">📥</button>
+</header>
+<div id="toast"></div>
+<main>
+  <!-- VIEW 1: HOME / DASHBOARD -->
+  <section id="view-home" class="view active">
+    <div class="week-bar" id="weekBar"></div>
+    <div class="stats-grid">
+      <div class="stat-box full"><span id="monthTitle">صافي شهر الحالي</span><b id="homeNet" class="accent">0:00</b></div>
+      <div class="stat-box"><span>نقاط ماشينة 2</span><b id="homePts">0.00</b></div>
+      <div class="stat-box"><span>المصروف الكلي</span><b id="homeExp">0 دج</b></div>
+      <div class="stat-box"><span>أيام الغياب</span><b id="homeAbs">0</b></div>
+      <div class="stat-box"><span>أيام مسجلة</span><b id="homeCount">0</b></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h2>سجل اليوم المختار</h2><span id="selectedDateLabel" style="font-size:12px;color:var(--text-muted)"></span></div>
+      <div id="selectedDayDetail" style="font-size:14px;color:var(--text-muted)">اختر يوماً من الشريط أو اضغط (+) لتسجيل عملك.</div>
+    </div>
+  </section>
+
+  <!-- VIEW 2: ENTRY FORM -->
+  <section id="view-entry" class="view">
+    <div class="card">
+      <div class="card-header"><h2 id="formTitle">تسجيل يوم جديد</h2></div>
+      <form id="workForm">
+        <div class="form-grid">
+          <div class="field full"><label>التاريخ</label><input type="date" id="f_date" required></div>
+          <div class="field"><label>ساعات إضافية (+)</label><input type="number" id="f_oh" min="0" step="1" value="0"></div>
+          <div class="field"><label>دقائق إضافية (+)</label><input type="number" id="f_om" min="0" max="59" step="1" value="0"></div>
+          <div class="field"><label>ساعات ناقصة (-)</label><input type="number" id="f_uh" min="0" step="1" value="0"></div>
+          <div class="field"><label>دقائق ناقصة (-)</label><input type="number" id="f_um" min="0" max="59" step="1" value="0"></div>
+          <div class="field"><label>الغياب</label><select id="f_abs"><option value="0">لا يوجد غياب</option><option value="0.5">نصف يوم</option><option value="1">يوم كامل</option></select></div>
+          <div class="field"><label>نقاط ماشينة 2</label><input type="number" id="f_pts" min="0" step="0.01" value="0"></div>
+          <div class="field full"><label>المصروف (دج)</label><input type="number" id="f_exp" min="0" step="1" value="0"></div>
+          <div class="field full"><label>ملاحظات</label><textarea id="f_note" placeholder="ملاحظات اليوم..."></textarea></div>
+        </div>
+        <button type="submit" class="btn-primary">حفظ البيانات</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- VIEW 3: RECORDS LIST -->
+  <section id="view-records" class="view">
+    <div class="card-header">
+      <h2>سجلات الشهر</h2>
+      <input type="month" id="filterMonth" style="width:auto;padding:6px 10px;font-size:13px">
+    </div>
+    <div id="recordsList"></div>
+  </section>
+
+  <!-- VIEW 4: SETTINGS / BACKUP -->
+  <section id="view-settings" class="view">
+    <div class="card">
+      <h2>النسخ الاحتياطي والبيانات</h2>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">بياناتك محفوظة محلياً في هاتفك بشكل آمن ومفتوح المصدر بالكامل.</p>
+      <button class="btn-primary" id="btnExport" style="margin-bottom:10px">تصدير نسخة احتياطية JSON</button>
+      <label class="btn-secondary" style="display:block;text-align:center;padding:12px;margin-bottom:10px">استيراد JSON<input type="file" id="importFile" accept=".json" hidden></label>
+      <button class="btn-secondary" id="btnWipe" style="width:100%;color:var(--danger)">مسح كل البيانات</button>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <button class="nav-item active" data-view="view-home"><span class="icon">🏠</span><span>الرئيسية</span></button>
+  <button class="nav-item" data-view="view-records"><span class="icon">📊</span><span>الإحصائيات</span></button>
+  <button class="nav-center-btn" id="quickAddBtn">➕</button>
+  <button class="nav-item" data-view="view-entry"><span class="icon">📅</span><span>خطة/إدخال</span></button>
+  <button class="nav-item" data-view="view-settings"><span class="icon">⚙️</span><span>الإعدادات</span></button>
+</nav>
+
+<script>
+'use strict';
+const KEY='work_pro_pwa_v1';
+let records=[];
+let selectedDate=new Date().toISOString().slice(0,10);
+let promptEvent=null;
+
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.style.display='block';
+  setTimeout(()=>{el.style.display='none'},2500);
+}
+
+try{
+  records=JSON.parse(localStorage.getItem(KEY)||'[]');
+  if(!Array.isArray(records))records=[];
+}catch(e){records=[];}
+
+function save(){
+  localStorage.setItem(KEY,JSON.stringify(records));
+  renderAll();
+}
+
+function calcNet(r){return (Number(r.oh)||0)*60+(Number(r.om)||0)-(Number(r.uh)||0)*60-(Number(r.um)||0);}
+function fmtTime(m){
+  const sign=m<0?'-':'';
+  m=Math.abs(m);
+  const h=Math.floor(m/60),min=m%60;
+  return `${sign}${h}:${String(min).padStart(2,'0')}`;
+}
+
+function renderWeekBar(){
+  const bar=document.getElementById('weekBar');
+  bar.innerHTML='';
+  const curr=new Date();
+  const days=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  for(let i=-3;i<=3;i++){
+    const d=new Date(curr);
+    d.setDate(curr.getDate()+i);
+    const iso=d.toISOString().slice(0,10);
+    const col=document.createElement('div');
+    col.className='day-col'+(iso===selectedDate?' selected':'');
+    col.innerHTML=`<span class="day-name">${days[d.getDay()]}</span><span class="day-num">${d.getDate()}</span>`;
+    col.onclick=()=>{selectedDate=iso;renderWeekBar();renderSelectedDetail();};
+    bar.appendChild(col);
+  }
+}
+
+function renderSelectedDetail(){
+  document.getElementById('selectedDateLabel').textContent=selectedDate;
+  const r=records.find(x=>x.date===selectedDate);
+  const det=document.getElementById('selectedDayDetail');
+  if(!r){
+    det.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><span>لا يوجد تسجيل لهذا اليوم.</span><button class="btn-secondary" onclick="openEntry('${selectedDate}')">تسجيل الآن</button></div>`;
+  }else{
+    det.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <b style="font-size:16px;color:var(--accent)">صافي الوقت: ${fmtTime(calcNet(r))}</b>
+        <div><button class="btn-secondary" onclick="openEntry('${r.date}')">تعديل</button></div>
+      </div>
+      <div style="display:flex;gap:12px;font-size:13px;color:var(--text-muted);flex-wrap:wrap">
+        <span>إضافي: ${r.oh||0}س ${r.om||0}د</span>
+        <span>ناقص: ${r.uh||0}س ${r.um||0}د</span>
+        <span>نقاط: ${r.pts||0}</span>
+        <span>مصروف: ${r.exp||0} دج</span>
+        ${r.abs>0?`<span style="color:var(--danger)">غياب: ${r.abs}</span>`:''}
+      </div>
+      ${r.note?`<div style="margin-top:8px;font-size:12px;color:#aaa">ملاحظة: ${r.note}</div>`:''}
+    `;
+  }
+}
+
+function renderHomeStats(){
+  const m=selectedDate.slice(0,7);
+  document.getElementById('monthTitle').textContent=`صافي شهر (${m})`;
+  const monthRecords=records.filter(r=>r.date.startsWith(m));
+  const totNet=monthRecords.reduce((a,c)=>a+calcNet(c),0);
+  const totPts=monthRecords.reduce((a,c)=>a+(Number(c.pts)||0),0);
+  const totExp=monthRecords.reduce((a,c)=>a+(Number(c.exp)||0),0);
+  const totAbs=monthRecords.reduce((a,c)=>a+(Number(c.abs)||0),0);
+  document.getElementById('homeNet').textContent=fmtTime(totNet);
+  document.getElementById('homePts').textContent=totPts.toFixed(2);
+  document.getElementById('homeExp').textContent=`${totExp.toLocaleString()} دج`;
+  document.getElementById('homeAbs').textContent=totAbs;
+  document.getElementById('homeCount').textContent=monthRecords.length;
+}
+
+function renderRecordsList(){
+  const m=document.getElementById('filterMonth').value;
+  const list=document.getElementById('recordsList');
+  const filtered=records.filter(r=>r.date.startsWith(m)).sort((a,b)=>b.date.localeCompare(a.date));
+  if(!filtered.length){
+    list.innerHTML='<div class="card" style="text-align:center;color:var(--text-muted)">لا توجد سجلات في هذا الشهر.</div>';
+    return;
+  }
+  list.innerHTML=filtered.map(r=>{
+    const net=calcNet(r);
+    return `
+      <div class="list-item">
+        <div>
+          <div class="date">${r.date}</div>
+          <div class="sub">نقاط: ${r.pts||0} | مصروف: ${r.exp||0} دج ${r.abs>0?`| غياب: ${r.abs}`:''}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <span class="net ${net<0?'neg':''}">${fmtTime(net)}</span>
+          <div class="actions">
+            <button onclick="openEntry('${r.date}')">✏️</button>
+            <button onclick="deleteRecord('${r.date}')">🗑️</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function deleteRecord(d){
+  if(confirm(`حذف سجل ${d}؟`)){
+    records=records.filter(r=>r.date!==d);
+    save();toast('تم الحذف');
+  }
+}
+
+function openEntry(d){
+  document.getElementById('f_date').value=d||new Date().toISOString().slice(0,10);
+  const r=records.find(x=>x.date===document.getElementById('f_date').value);
+  document.getElementById('f_oh').value=r?r.oh:0;
+  document.getElementById('f_om').value=r?r.om:0;
+  document.getElementById('f_uh').value=r?r.uh:0;
+  document.getElementById('f_um').value=r?r.um:0;
+  document.getElementById('f_abs').value=r?r.abs:'0';
+  document.getElementById('f_pts').value=r?r.pts:0;
+  document.getElementById('f_exp').value=r?r.exp:0;
+  document.getElementById('f_note').value=r?r.note||'':'';
+  document.getElementById('formTitle').textContent=r?`تعديل يوم (${r.date})`:'تسجيل يوم جديد';
+  switchView('view-entry');
+}
+
+function switchView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.view===id);
+  });
+  window.scrollTo(0,0);
+}
+
+document.querySelectorAll('.nav-item').forEach(btn=>{
+  btn.onclick=()=>switchView(btn.dataset.view);
+});
+document.getElementById('quickAddBtn').onclick=()=>openEntry(selectedDate);
+
+document.getElementById('workForm').onsubmit=(e)=>{
+  e.preventDefault();
+  const d=document.getElementById('f_date').value;
+  const newR={
+    date:d,
+    oh:Number(document.getElementById('f_oh').value)||0,
+    om:Number(document.getElementById('f_om').value)||0,
+    uh:Number(document.getElementById('f_uh').value)||0,
+    um:Number(document.getElementById('f_um').value)||0,
+    abs:Number(document.getElementById('f_abs').value)||0,
+    pts:Number(document.getElementById('f_pts').value)||0,
+    exp:Number(document.getElementById('f_exp').value)||0,
+    note:document.getElementById('f_note').value.trim()
+  };
+  records=records.filter(r=>r.date!==d);
+  records.push(newR);
+  save();
+  toast('تم حفظ اليوم بنجاح ✅');
+  switchView('view-home');
+};
+
+document.getElementById('btnExport').onclick=()=>{
+  const blob=new Blob([JSON.stringify(records,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`work-pro-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  toast('تم تصدير النسخة الاحتياطية');
+};
+
+document.getElementById('importFile').onchange=(e)=>{
+  const f=e.target.files[0];
+  if(!f)return;
+  const rdr=new FileReader();
+  rdr.onload=()=>{
+    try{
+      const d=JSON.parse(rdr.result);
+      if(!Array.isArray(d))throw new Error();
+      if(confirm(`استيراد ${d.length} سجل واستبدال البيانات الحالية؟`)){
+        records=d;save();toast('تم الاستيراد بنجاح');
+      }
+    }catch(err){alert('ملف غير صالح');}
+  };
+  rdr.readAsText(f);
+};
+
+document.getElementById('btnWipe').onclick=()=>{
+  if(confirm('هل أنت متأكد من حذف جميع السجلات نهائياً؟')){
+    records=[];save();toast('تم المسح');
+  }
+};
+
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();promptEvent=e;
+  const b=document.getElementById('install');
+  b.style.display='flex';
+  b.onclick=()=>{if(promptEvent){promptEvent.prompt();promptEvent=null;b.style.display='none';}};
+});
+
+function renderAll(){
+  renderWeekBar();
+  renderSelectedDetail();
+  renderHomeStats();
+  renderRecordsList();
+}
+
+const today=new Date().toISOString().slice(0,10);
+document.getElementById('filterMonth').value=today.slice(0,7);
+document.getElementById('filterMonth').onchange=renderRecordsList;
+renderAll();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
